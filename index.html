@@ -322,7 +322,7 @@
       </div>
 
       <!-- Grid de Artículos del Blog (Con Lector Desplegable) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div id="blogGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
         
         <!-- Tarjeta 1 -->
         <article class="blog-card group bg-white dark:bg-canvas-darkCard rounded-3xl p-8 border border-black/[0.06] dark:border-white/[0.07] hover:border-sage-500/50 hover:shadow-2xl transition duration-500 flex flex-col justify-between cursor-pointer" data-category="ego" onclick="openReader(1)">
@@ -1101,23 +1101,83 @@
       if (e.target === readerModal) closeReader();
     });
 
-    // Cargar reflexiones dinámicas desde data/reflexiones.json si existen
+    function getCategorySlug(cat) {
+      if (!cat) return 'todos';
+      const c = cat.toLowerCase();
+      if (c.includes('ego')) return 'ego';
+      if (c.includes('presencia')) return 'presencia';
+      if (c.includes('diálogo') || c.includes('dialogo') || c.includes('pregunta')) return 'preguntas';
+      return 'todos';
+    }
+
+    function formatArticleContent(body) {
+      if (!body) return '';
+      let html = body.trim();
+      if (!html.includes('<p>') && !html.includes('<div>')) {
+        html = html.split(/\n\s*\n/).map(p => `<p class="mb-4">${p.trim().replace(/\n/g, '<br>')}</p>`).join('');
+      }
+      return html;
+    }
+
+    function renderReflectionsGrid(items) {
+      const grid = document.getElementById('blogGrid');
+      if (!grid || !Array.isArray(items) || items.length === 0) return;
+
+      grid.innerHTML = '';
+
+      items.forEach((item, index) => {
+        const id = item.id || `art-${index + 1}`;
+        const catSlug = getCategorySlug(item.category);
+        const excerpt = item.excerpt || (item.body ? item.body.replace(/<[^>]*>?/gm, '').slice(0, 140) + '...' : '');
+
+        articlesData[id] = {
+          category: item.category || 'Reflexión',
+          title: item.title,
+          content: formatArticleContent(item.body || item.content)
+        };
+
+        const articleEl = document.createElement('article');
+        articleEl.className = 'blog-card group bg-white dark:bg-canvas-darkCard rounded-3xl p-8 border border-black/[0.06] dark:border-white/[0.07] hover:border-sage-500/50 hover:shadow-2xl transition duration-500 flex flex-col justify-between cursor-pointer';
+        articleEl.setAttribute('data-category', catSlug);
+        articleEl.onclick = () => openReader(id);
+
+        articleEl.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between text-xs text-warmgray-500 dark:text-[#938F87] mb-5">
+              <span class="px-3 py-1 rounded-full bg-sage-50 dark:bg-sage-900/40 text-sage-700 dark:text-sage-100 font-medium">${escapeHtml(item.category || 'Reflexión')}</span>
+              <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5"></i> ${escapeHtml(item.read_time || '3 min')}</span>
+            </div>
+            <h3 class="font-serif text-2xl sm:text-3xl font-normal group-hover:text-sage-500 dark:group-hover:text-sage-100 transition mb-4 leading-snug">
+              ${escapeHtml(item.title)}
+            </h3>
+            <p class="text-sm text-warmgray-500 dark:text-[#B3ADA2] line-clamp-3 leading-relaxed font-light">
+              ${escapeHtml(excerpt)}
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-black/[0.05] dark:border-white/[0.05] flex items-center justify-between text-xs font-medium text-warmgray-900 dark:text-white">
+            <span>Abrir lectura inmersiva</span>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition"></i>
+          </div>
+        `;
+        grid.appendChild(articleEl);
+      });
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // Cargar reflexiones dinámicas desde data/reflexiones.json
     fetch('data/reflexiones.json')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Status ' + res.status);
+        return res.json();
+      })
       .then(items => {
         if (Array.isArray(items) && items.length > 0) {
-          items.forEach((item, index) => {
-            const key = item.id || (index + 1);
-            articlesData[key] = {
-              category: item.category || 'Reflexión',
-              title: item.title,
-              content: item.body || item.content
-            };
-          });
+          renderReflectionsGrid(items);
         }
       })
       .catch(err => {
-        // Fallback a los datos estáticos locales
+        console.warn('Cargando tarjetas por defecto');
       });
 
     // Redirección de Netlify Identity al panel de autor
