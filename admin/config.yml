@@ -1,0 +1,25 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+locale: "es"
+
+collections:
+  - name: "reflexiones"
+    label: "Reflexiones del Autor"
+    label_singular: "Reflexión"
+    folder: "content/reflexiones"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - { label: "Título de la Reflexión", name: "title", widget: "string" }
+      - { label: "Categoría", name: "category", widget: "select", options: ["El Ego", "Presencia", "Diálogos", "Silencio"], default: "Presencia" }
+      - { label: "Tiempo de lectura (ej. 3 min)", name: "read_time", widget: "string", default: "3 min" }
+      - { label: "Fecha de publicación", name: "date", widget: "datetime", format: "YYYY-MM-DD", dateFormat: "DD/MM/YYYY", timeFormat: false }
+      - { label: "Resumen breve para la tarjeta", name: "excerpt", widget: "text" }
+      - { label: "Contenido completo de la reflexión", name: "body", widget: "markdown" }
