@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth snap-y snap-mandatory">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Francisco Manuel Gordillo | A Dios no se le busca, se le deja estar</title>
+  
+  <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Netlify Identity Widget para acceso de autor al /admin -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            canvas: {
+              light: '#F7F4EE',
+              card: '#FFFFFF',
+              dark: '#121211',
+              darkCard: '#1C1B19',
+            },
+            sage: {
+              50: '#F2F6F3',
+              100: '#E1ECE3',
+              400: '#7E9986',
+              500: '#5E7A67',
+              700: '#415548',
+              900: '#222F27',
+            },
+            terracotta: {
+              DEFAULT: '#C17B5C',
+              dark: '#A36043',
+            },
+            warmgray: {
+              300: '#B8B2A7',
+              500: '#7A756D',
+              700: '#44403B',
+              900: '#221F1C',
+            }
+          },
+          animation: {
+            'breathe': 'breathe 10s infinite ease-in-out',
+            'bounce-slow': 'bounceSlow 2.5s infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-soft': 'pulseSoft 3s ease-in-out infinite',
+          },
+          keyframes: {
+            breathe: {
+              '0%, 100%': { transform: 'scale(1)', opacity: '0.45' },
+              '40%': { transform: 'scale(1.4)', opacity: '0.9' },
+              '60%': { transform: 'scale(1.4)', opacity: '0.9' },
+            },
+            bounceSlow: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(12px)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            pulseSoft: {
+              '0%, 100%': { opacity: '0.6' },
+              '50%': { opacity: '1' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html {
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+    
+    /* Scroll-snap sections */
+    .snap-section {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      min-height: 100vh;
+    }
+
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F7F4EE;
+    }
+    .dark ::-webkit-scrollbar-track {
+      background: #121211;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D8D2C6;
+      border-radius: 9999px;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: #34322E;
+    }
+
+    .paper-texture {
+      background-image: radial-gradient(rgba(0,0,0,0.035) 1px, transparent 0);
+      background-size: 28px 28px;
+    }
+    .dark .paper-texture {
+      background-image: radial-gradient(rgba(255,255,255,0.035) 1px, transparent 0);
+    }
+
+    /* 3D perspective for book hover */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .book-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+  </style>
+</head>
+
+<body class="bg-[#F7F4EE] dark:bg-[#121211] text-warmgray-900 dark:text-[#EAE6DE] font-sans antialiased transition-colors duration-500 paper-texture overflow-x-hidden selection:bg-sage-100 selection:text-sage-900">
+
+  <!-- ==================== LUZ AMBIENTAL DE FONDO (SIGUE EL RATÓN) ==================== -->
+  <div id="ambientAura" class="fixed pointer-events-none w-[500px] h-[500px] rounded-full bg-sage-400/10 dark:bg-sage-400/15 blur-3xl -translate-x-1/2 -translate-y-1/2 transition-transform duration-150 ease-out z-0"></div>
+
+  <!-- ==================== NAVEGADOR VERTICAL DE PANTALLAS (DOTS LATERALES) ==================== -->
+  <aside class="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-end space-y-4">
+    <a href="#inicio" data-nav="inicio" class="nav-dot group flex items-center space-x-3 text-xs">
+      <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-warmgray-500 dark:text-[#A7A298] font-medium font-serif italic">01. Portada</span>
+      <span class="dot-indicator w-2.5 h-2.5 rounded-full border border-warmgray-500/50 dark:border-white/40 transition-all duration-300 bg-sage-500 scale-125"></span>
+    </a>
+    <a href="#silencio" data-nav="silencio" class="nav-dot group flex items-center space-x-3 text-xs">
+      <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-warmgray-500 dark:text-[#A7A298] font-medium font-serif italic">02. El Silencio</span>
+      <span class="dot-indicator w-2.5 h-2.5 rounded-full border border-warmgray-500/50 dark:border-white/40 transition-all duration-300"></span>
+    </a>
+    <a href="#blog" data-nav="blog" class="nav-dot group flex items-center space-x-3 text-xs">
+      <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-warmgray-500 dark:text-[#A7A298] font-medium font-serif italic">03. Reflexiones</span>
+      <span class="dot-indicator w-2.5 h-2.5 rounded-full border border-warmgray-500/50 dark:border-white/40 transition-all duration-300"></span>
+    </a>
+    <a href="#libro" data-nav="libro" class="nav-dot group flex items-center space-x-3 text-xs">
+      <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-warmgray-500 dark:text-[#A7A298] font-medium font-serif italic">04. El Libro</span>
+      <span class="dot-indicator w-2.5 h-2.5 rounded-full border border-warmgray-500/50 dark:border-white/40 transition-all duration-300"></span>
+    </a>
+    <a href="#autor" data-nav="autor" class="nav-dot group flex items-center space-x-3 text-xs">
+      <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-warmgray-500 dark:text-[#A7A298] font-medium font-serif italic">05. Contacto</span>
+      <span class="dot-indicator w-2.5 h-2.5 rounded-full border border-warmgray-500/50 dark:border-white/40 transition-all duration-300"></span>
+    </a>
+  </aside>
+
+  <!-- ==================== BARRA SUPERIOR (HEADER) ==================== -->
+  <header class="fixed top-0 left-0 right-0 z-40 backdrop-blur-md bg-[#F7F4EE]/80 dark:bg-[#121211]/80 border-b border-black/[0.04] dark:border-white/[0.06] transition-all">
+    <div class="max-w-6xl mx-auto px-6 h-18 flex items-center justify-between py-4">
+      
+      <!-- Firma / Autor -->
+      <a href="#inicio" class="flex flex-col group">
+        <span class="font-serif text-2xl tracking-wide font-normal group-hover:text-sage-500 transition">Francisco M. Gordillo</span>
+        <span class="text-[9px] uppercase tracking-widest text-warmgray-500 dark:text-[#A39F97] font-semibold -mt-1">
+          A Dios no se le busca, se le deja estar
+        </span>
+      </a>
+
+      <!-- Menú principal horizontal -->
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-warmgray-700 dark:text-[#C7C2B7]">
+        <a href="#silencio" class="hover:text-sage-500 dark:hover:text-white transition">El Silencio</a>
+        <a href="#blog" class="hover:text-sage-500 dark:hover:text-white transition">Reflexiones</a>
+        <a href="#libro" class="hover:text-sage-500 dark:hover:text-white transition">El Libro</a>
+        <a href="#autor" class="hover:text-sage-500 dark:hover:text-white transition">Buzón</a>
+      </nav>
+
+      <!-- Botones de Utilidad -->
+      <div class="flex items-center space-x-3">
+        <!-- Pausa de respiración -->
+        <button id="btnOpenBreathing" class="flex items-center space-x-2 text-xs font-medium px-4 py-2 rounded-full border border-sage-500/30 text-sage-700 dark:text-sage-100 bg-sage-50 dark:bg-sage-900/30 hover:bg-sage-100 dark:hover:bg-sage-800/50 transition">
+          <i data-lucide="wind" class="w-3.5 h-3.5 text-sage-500 animate-pulse"></i>
+          <span>Respirar</span>
+        </button>
+
+        <!-- Toggle Modo Noche -->
+        <button id="themeToggle" aria-label="Cambiar modo visual" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 text-warmgray-500 dark:text-[#C5BFB5] transition">
+          <i data-lucide="moon" id="moonIcon" class="w-4 h-4 hidden dark:block"></i>
+          <i data-lucide="sun" id="sunIcon" class="w-4 h-4 block dark:hidden"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- SECCIÓN 01: PANTALLA COMPLETA 1 (PORTADA CINEMÁTICA / HERO INMERSIVO) -->
+  <!-- ========================================================================= -->
+  <section id="inicio" class="snap-section relative flex flex-col items-center justify-center px-6 text-center pt-16">
+    
+    <div class="max-w-4xl mx-auto flex flex-col items-center relative z-10 my-auto">
+      
+      <!-- Badge de Entrada -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sage-50 dark:bg-sage-900/50 border border-sage-500/20 text-xs text-sage-700 dark:text-sage-100 mb-8 font-medium animate-pulse-soft">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-sage-500"></i>
+        <span>Bienvenido al umbral del silencio</span>
+      </div>
+
+      <!-- Título Monumental -->
+      <h1 class="font-serif text-5xl sm:text-7xl md:text-8xl font-normal leading-[1.08] tracking-tight mb-8 text-warmgray-900 dark:text-[#F4EFEA]">
+        A Dios no se le busca,<br>
+        <span class="italic font-light text-sage-500 dark:text-sage-100">se le deja estar.</span>
+      </h1>
+
+      <!-- Subtítulo -->
+      <p class="text-lg sm:text-2xl text-warmgray-500 dark:text-[#B6B1A6] max-w-2xl mx-auto font-light leading-relaxed mb-10">
+        «El Dios al que se refiere en este libro no tiene nada que ver con el dios del que nos han hablado. La puerta siempre estuvo abierta. Mejor dicho, <em>¡nunca hubo una puerta!</em>»
+      </p>
+
+      <!-- Botones de Acción Directa -->
+      <div class="flex flex-col sm:flex-row items-center gap-4">
+        <a href="#blog" class="px-8 py-4 rounded-full bg-warmgray-900 dark:bg-[#EAE4D9] text-white dark:text-[#141413] font-medium text-sm hover:scale-105 transition-all shadow-md flex items-center gap-2.5">
+          <i data-lucide="book-open" class="w-4 h-4"></i>
+          <span>Entrar a las Reflexiones</span>
+        </a>
+        <a href="#libro" class="px-8 py-4 rounded-full border border-warmgray-900/20 dark:border-white/20 text-warmgray-900 dark:text-white font-medium text-sm hover:bg-black/5 dark:hover:bg-white/5 transition flex items-center gap-2">
+          <i data-lucide="bookmark" class="w-4 h-4 text-terracotta"></i>
+          <span>Conocer el Libro</span>
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SECCIÓN 02: PANTALLA COMPLETA 2 (TRANSICIÓN: EL RUIDO VS EL SILENCIO) -->
+  <!-- ========================================================================= -->
+  <section id="silencio" class="snap-section relative flex flex-col items-center justify-center px-6 py-20 bg-sage-50/40 dark:bg-[#161614] border-t border-black/[0.04] dark:border-white/[0.05]">
+    
+    <div class="max-w-4xl mx-auto w-full my-auto">
+      
+      <div class="text-center mb-10">
+        <span class="text-xs uppercase tracking-widest font-semibold text-sage-500 dark:text-sage-100 block mb-3">La Gran Ilusión</span>
+        <h2 class="font-serif text-3xl sm:text-5xl font-normal text-warmgray-900 dark:text-[#F4EFEA]">
+          El «locutor farsante» y el espacio testigo
+        </h2>
+      </div>
+
+      <!-- Tarjeta Interactiva de Contraste con efecto Hover y Citas -->
+      <div class="bg-white dark:bg-canvas-darkCard border border-black/[0.06] dark:border-white/[0.08] rounded-3xl p-8 sm:p-12 shadow-xl relative overflow-hidden">
+        
+        <div class="flex items-center justify-between pb-6 mb-8 border-b border-black/[0.06] dark:border-white/[0.06]">
+          <div class="flex items-center space-x-2 text-xs font-semibold tracking-wider uppercase text-sage-700 dark:text-sage-100">
+            <i data-lucide="feather" class="w-4 h-4"></i>
+            <span>Píldora del Presente</span>
+          </div>
+          
+          <button id="btnNextQuote" class="text-xs text-warmgray-500 dark:text-[#A7A298] hover:text-warmgray-900 dark:hover:text-white flex items-center gap-1.5 transition py-1.5 px-3.5 rounded-full border border-black/[0.05] dark:border-white/[0.1] hover:bg-black/5 dark:hover:bg-white/5">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+            <span>Siguiente reflexión</span>
+          </button>
+        </div>
+
+        <blockquote class="min-h-[120px] flex items-center justify-center text-center px-4">
+          <p id="quoteText" class="font-serif text-xl sm:text-3xl italic font-normal text-warmgray-900 dark:text-[#F3EFEA] leading-relaxed transition-opacity duration-300">
+            «La Verdad no se la busca, no se la persigue. A la Verdad se le deja inundarte, abandonando lo viejo, la irrealidad de nuestro personaje, entregándonos a la confianza de saber que no debo hacer nada, que en todo momento estoy guiado por Aquel que un día fue, es y será.»
+          </p>
+        </blockquote>
+
+        <div class="mt-8 pt-6 border-t border-black/[0.06] dark:border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-warmgray-500 dark:text-[#9D988E]">
+          <span id="quoteSource" class="italic">Francis — Capítulo «La verdad Es, Dios Es» (pág. 55)</span>
+          <div class="flex items-center gap-4">
+            <button id="btnCopyQuote" class="flex items-center gap-1.5 hover:text-sage-500 dark:hover:text-sage-100 transition font-medium">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              <span id="copyStatus">Copiar cita</span>
+            </button>
+            <a href="#blog" class="text-sage-500 dark:text-sage-100 font-medium hover:underline flex items-center gap-1">
+              <span>Ir al blog</span>
+              <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SECCIÓN 03: PANTALLA COMPLETA 3 (EL BLOG / REFLEXIONES EN GRANDE) -->
+  <!-- ========================================================================= -->
+  <section id="blog" class="snap-section relative flex flex-col justify-center px-6 py-20 min-h-screen">
+    
+    <div class="max-w-6xl mx-auto w-full my-auto">
+      
+      <!-- Encabezado del Blog con Filtro Interactivo -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-black/[0.05] dark:border-white/[0.06]">
+        <div>
+          <span class="text-xs uppercase tracking-widest font-semibold text-sage-500 dark:text-sage-100 block mb-2">Cuaderno de Presencia</span>
+          <h2 class="font-serif text-4xl sm:text-6xl font-normal text-warmgray-900 dark:text-[#F4EFEA]">
+            Reflexiones del Autor
+          </h2>
+        </div>
+
+        <!-- Filtros Rápidos -->
+        <div class="flex flex-wrap gap-2 mt-4 md:mt-0">
+          <button class="filter-btn active px-4 py-1.5 rounded-full text-xs font-medium bg-warmgray-900 dark:bg-white text-white dark:text-warmgray-900 transition" onclick="filterBlog('todos', this)">Todas</button>
+          <button class="filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-black/[0.04] dark:bg-white/[0.06] text-warmgray-700 dark:text-[#C5BFB5] hover:bg-black/[0.08] transition" onclick="filterBlog('presencia', this)">Presencia</button>
+          <button class="filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-black/[0.04] dark:bg-white/[0.06] text-warmgray-700 dark:text-[#C5BFB5] hover:bg-black/[0.08] transition" onclick="filterBlog('preguntas', this)">Diálogos</button>
+          <button class="filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-black/[0.04] dark:bg-white/[0.06] text-warmgray-700 dark:text-[#C5BFB5] hover:bg-black/[0.08] transition" onclick="filterBlog('ego', this)">El Ego / La Sombra</button>
+          <button class="filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-black/[0.04] dark:bg-white/[0.06] text-warmgray-700 dark:text-[#C5BFB5] hover:bg-black/[0.08] transition" onclick="filterBlog('cuentos', this)">Cuentos</button>
+          <button class="filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-black/[0.04] dark:bg-white/[0.06] text-warmgray-700 dark:text-[#C5BFB5] hover:bg-black/[0.08] transition" onclick="filterBlog('silencio', this)">Silencio</button>
+        </div>
+      </div>
+
+      <!-- Grid de Artículos del Blog (Con Lector Desplegable) -->
+      <div id="blogGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Tarjeta 1 -->
+        <article class="blog-card group bg-white dark:bg-canvas-darkCard rounded-3xl p-8 border border-black/[0.06] dark:border-white/[0.07] hover:border-sage-500/50 hover:shadow-2xl transition duration-500 flex flex-col justify-between cursor-pointer" data-category="presencia" onclick="openReader('la-verdad-es')">
+          <div>
+            <div class="flex items-center justify-between text-xs text-warmgray-500 dark:text-[#938F87] mb-5">
+              <span class="px-3 py-1 rounded-full bg-sage-50 dark:bg-sage-900/40 text-sage-700 dark:text-sage-100 font-medium">Presencia</span>
+              <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 3 min</span>
+            </div>
+            <h3 class="font-serif text-2xl sm:text-3xl font-normal group-hover:text-sage-500 dark:group-hover:text-sage-100 transition mb-4 leading-snug">
+              La verdad Es, Dios Es
+            </h3>
+            <p class="text-sm text-warmgray-500 dark:text-[#B3ADA2] line-clamp-3 leading-relaxed font-light">
+              «La Verdad no se la busca, no se la persigue. A la Verdad se le deja inundarte, abandonando lo viejo, la irrealidad de nuestro personaje, entregándonos a la confianza de saber que no debo hacer nada...»
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-black/[0.05] dark:border-white/[0.05] flex items-center justify-between text-xs font-medium text-warmgray-900 dark:text-white">
+            <span>Abrir lectura inmersiva</span>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition"></i>
+          </div>
+        </article>
+
+        <!-- Tarjeta 2 -->
+        <article class="blog-card group bg-white dark:bg-canvas-darkCard rounded-3xl p-8 border border-black/[0.06] dark:border-white/[0.07] hover:border-sage-500/50 hover:shadow-2xl transition duration-500 flex flex-col justify-between cursor-pointer" data-category="presencia" onclick="openReader('el-guerrero')">
+          <div>
+            <div class="flex items-center justify-between text-xs text-warmgray-500 dark:text-[#938F87] mb-5">
+              <span class="px-3 py-1 rounded-full bg-sage-50 dark:bg-sage-900/40 text-sage-700 dark:text-sage-100 font-medium">Presencia</span>
+              <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 3 min</span>
+            </div>
+            <h3 class="font-serif text-2xl sm:text-3xl font-normal group-hover:text-sage-500 dark:group-hover:text-sage-100 transition mb-4 leading-snug">
+              El guerrero: toda batalla es contra uno mismo
+            </h3>
+            <p class="text-sm text-warmgray-500 dark:text-[#B3ADA2] line-clamp-3 leading-relaxed font-light">
+              «Frena tu fuerza extrema, clava tu gran espada y suelta el escudo abollado de ver un mundo de ataques. ¡Toda batalla es contra uno mismo! Cualquier batalla es el alimento más deseado por el ego.»
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-black/[0.05] dark:border-white/[0.05] flex items-center justify-between text-xs font-medium text-warmgray-900 dark:text-white">
+            <span>Abrir lectura inmersiva</span>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition"></i>
+          </div>
+        </article>
+
+        <!-- Tarjeta 3 -->
+        <article class="blog-card group bg-white dark:bg-canvas-darkCard rounded-3xl p-8 border border-black/[0.06] dark:border-white/[0.07] hover:border-sage-500/50 hover:shadow-2xl transition duration-500 flex flex-col justify-between cursor-pointer" data-category="preguntas" onclick="openReader('pregunte-y-el-respondio')">
+          <div>
+            <div class="flex items-center justify-between text-xs text-warmgray-500 dark:text-[#938F87] mb-5">
+              <span class="px-3 py-1 rounded-full bg-sage-50 dark:bg-sage-900/40 text-sage-700 dark:text-sage-100 font-medium">Diálogos</span>
+              <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 5 min</span>
+            </div>
+            <h3 class="font-serif text-2xl sm:text-3xl font-normal group-hover:text-sage-500 dark:group-hover:text-sage-100 transition mb-4 leading-snug">
+              Pregunté y El respondió: Diálogos con el Yo Soy
+            </h3>
+            <p class="text-sm text-warmgray-500 dark:text-[#B3ADA2] line-clamp-3 leading-relaxed font-light">
+              «F: ¿Qué es la salvación, Padre? — R: La salvación es cuando tomas conciencia de tu Ser y tu Ser no es tu cuerpo. Tu ser es un fragmento de Dios, entonces a los lazos de apego con el cuerpo se les quita realidad.»
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-black/[0.05] dark:border-white/[0.05] flex items-center justify-between text-xs font-medium text-warmgray-900 dark:text-white">
+            <span>Abrir lectura inmersiva</span>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition"></i>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SECCIÓN 04: PANTALLA COMPLETA 4 (EL LIBRO CON MOCKUP 3D INTERACTIVO) -->
+  <!-- ========================================================================= -->
+  <section id="libro" class="snap-section relative flex flex-col justify-center px-6 py-20 bg-white/70 dark:bg-[#181816] border-y border-black/[0.05] dark:border-white/[0.06]">
+    
+    <div class="max-w-6xl mx-auto w-full my-auto">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Mockup 3D Interactivo con la PORTADA REAL del libro -->
+        <div class="lg:col-span-5 flex justify-center perspective-1000 py-4" id="bookContainer">
+          <div id="book3D" class="book-3d relative w-64 sm:w-80 aspect-[1/1.5] rounded-r-2xl rounded-l-sm shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] select-none cursor-pointer overflow-hidden border-l-4 border-l-[#2E2824] bg-neutral-900 group">
+            
+            <!-- Portada Real del Libro -->
+            <img src="portada-libro.jpg" 
+                 onerror="this.src='https://storage.googleapis.com/cdn-lantia/images/lantia_cover_68491ffc92d19_360.jpg'" 
+                 alt="Portada del libro A Dios no se le busca, se le deja estar (DIOS ES) de Francisco Manuel Gordillo Borrego" 
+                 class="w-full h-full object-cover rounded-r-2xl rounded-l-sm" />
+
+            <!-- Reflejo suave de relieve sobre la cubierta -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-white/10 pointer-events-none rounded-r-2xl"></div>
+
+            <!-- Efecto lomo 3D en el borde izquierdo -->
+            <div class="absolute left-0 top-0 bottom-0 w-4 bg-gradient-to-r from-black/40 via-black/10 to-transparent pointer-events-none"></div>
+
+            <!-- Efecto de grosor de páginas en el borde derecho -->
+            <div class="absolute right-0 top-0 bottom-0 w-1.5 bg-gradient-to-l from-white/20 to-transparent pointer-events-none"></div>
+          </div>
+        </div>
+
+        <!-- Información y enlaces oficiales -->
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-terracotta/10 text-terracotta text-xs font-medium mb-4">
+            <i data-lucide="award" class="w-3.5 h-3.5"></i>
+            <span>Obra publicada en Caligrama Editorial</span>
+          </div>
+
+          <h2 class="font-serif text-4xl sm:text-5xl font-normal text-warmgray-900 dark:text-[#F3EFEA] mb-6 leading-tight">
+            Desarmar el ego para encontrarte con lo que siempre ha sido.
+          </h2>
+
+          <p class="text-warmgray-500 dark:text-[#B8B3A8] leading-relaxed mb-6 font-light text-base sm:text-lg">
+            Una obra de reflexión lúcida y práctica que te enseña a dejar de pelear contra el momento presente y a reconocer la presencia divina que ya habita en tu silencio.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            <div class="p-4 rounded-2xl bg-canvas-light dark:bg-canvas-dark border border-black/[0.04] dark:border-white/[0.05]">
+              <h4 class="font-medium text-sm text-warmgray-900 dark:text-white flex items-center gap-2 mb-1">
+                <i data-lucide="volume-x" class="w-4 h-4 text-sage-500"></i>
+                Sin dogmas rígidos
+              </h4>
+              <p class="text-xs text-warmgray-500 dark:text-[#A7A298] leading-normal">
+                Una mirada limpia a la espiritualidad accesible para cualquier persona.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-canvas-light dark:bg-canvas-dark border border-black/[0.04] dark:border-white/[0.05]">
+              <h4 class="font-medium text-sm text-warmgray-900 dark:text-white flex items-center gap-2 mb-1">
+                <i data-lucide="heart" class="w-4 h-4 text-sage-500"></i>
+                Práctica diaria
+              </h4>
+              <p class="text-xs text-warmgray-500 dark:text-[#A7A298] leading-normal">
+                La respiración y la atención plena como anclas directas a la serenidad.
+              </p>
+            </div>
+          </div>
+
+          <!-- Opciones de compra por librerías -->
+          <div class="mb-6">
+            <span class="text-xs uppercase tracking-wider font-semibold text-warmgray-500 dark:text-[#A09B90] block mb-3">
+              Disponible en librerías oficiales:
+            </span>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              
+              <!-- Casa del Libro -->
+              <a href="https://www.casadellibro.com/libro-a-dios-no-se-le-busca-se-le-deja-estar-dios-es/9791387763305/17115575" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 p-3.5 rounded-2xl bg-white dark:bg-canvas-darkCard border border-black/[0.08] dark:border-white/[0.08] hover:border-[#006C35] hover:shadow-lg transition-all">
+                <div class="w-9 h-9 rounded-xl bg-[#006C35] flex items-center justify-center p-1.5 shadow-sm shrink-0">
+                  <img src="cdl-v.svg" alt="Logo Oficial Casa del Libro" class="w-full h-full object-contain" />
+                </div>
+                <div class="flex flex-col min-w-0">
+                  <span class="text-xs font-semibold text-warmgray-900 dark:text-white group-hover:text-[#006C35] dark:group-hover:text-emerald-400 transition truncate">Casa del Libro</span>
+                  <span class="text-[9px] text-warmgray-400 font-normal">Oficial</span>
+                </div>
+              </a>
+
+              <!-- Fnac -->
+              <a href="https://www.fnac.es/a12088903/Francisco-Manuel-Gordillo-Borrego-A-Dios-No-Se-Le-Busca-Se-Le-Deja-Estar-Dios-Es" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 p-3.5 rounded-2xl bg-white dark:bg-canvas-darkCard border border-black/[0.08] dark:border-white/[0.08] hover:border-[#EBB300] hover:shadow-lg transition-all">
+                <div class="w-9 h-9 rounded-xl overflow-hidden bg-[#EBB300] flex items-center justify-center p-0.5 shadow-sm shrink-0">
+                  <img src="fnac.svg" alt="Logo Oficial Fnac" class="w-full h-full object-contain" />
+                </div>
+                <div class="flex flex-col min-w-0">
+                  <span class="text-xs font-semibold text-warmgray-900 dark:text-white group-hover:text-[#B88600] dark:group-hover:text-amber-400 transition truncate">Fnac</span>
+                  <span class="text-[9px] text-warmgray-400 font-normal">España</span>
+                </div>
+              </a>
+
+              <!-- Amazon -->
+              <a href="https://www.amazon.es/Dios-busca-deja-estar-DIOS/dp/B0FDWCLP79" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 p-3.5 rounded-2xl bg-white dark:bg-canvas-darkCard border border-black/[0.08] dark:border-white/[0.08] hover:border-[#FF9900] hover:shadow-lg transition-all">
+                <div class="w-9 h-9 rounded-xl bg-white flex items-center justify-center p-1.5 shadow-sm shrink-0 border border-black/10">
+                  <img src="amazon.svg" alt="Logo Oficial Amazon" class="w-full h-auto object-contain" />
+                </div>
+                <div class="flex flex-col min-w-0">
+                  <span class="text-xs font-semibold text-warmgray-900 dark:text-white group-hover:text-orange-500 transition truncate">Amazon</span>
+                  <span class="text-[9px] text-warmgray-400 font-normal">Prime</span>
+                </div>
+              </a>
+
+              <!-- Editorial Caligrama -->
+              <a href="https://www.caligramaeditorial.com/libro/A-Dios-no-se-le-busca-se-le-deja-estar-DIOS-ES" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 p-3.5 rounded-2xl bg-white dark:bg-canvas-darkCard border border-black/[0.08] dark:border-white/[0.08] hover:border-terracotta hover:shadow-lg transition-all">
+                <div class="w-9 h-9 rounded-xl bg-[#1E2023] flex items-center justify-center p-1.5 shadow-sm shrink-0 border border-white/10">
+                  <img src="caligrama.png" onerror="this.src='caligrama-logo.png'" alt="Logo Oficial Caligrama Editorial" class="w-full h-full object-contain rounded" />
+                </div>
+                <div class="flex flex-col min-w-0">
+                  <span class="text-xs font-semibold text-warmgray-900 dark:text-white group-hover:text-terracotta transition truncate">Caligrama</span>
+                  <span class="text-[9px] text-warmgray-400 font-normal">Editorial</span>
+                </div>
+              </a>
+
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4">
+            <button id="btnOpenExcerpt" class="px-7 py-3.5 rounded-full bg-warmgray-900 dark:bg-[#EAE4D9] text-white dark:text-[#121211] font-medium text-sm hover:scale-105 transition flex items-center gap-2 shadow-sm">
+              <i data-lucide="book-open" class="w-4 h-4"></i>
+              <span>Leer el primer extracto gratis</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SECCIÓN 05: PANTALLA COMPLETA 5 (SOBRE EL AUTOR & BUZÓN ÍNTIMO) -->
+  <!-- ========================================================================= -->
+  <section id="autor" class="snap-section relative flex flex-col justify-between px-6 py-20 min-h-screen">
+    
+    <div class="max-w-4xl mx-auto w-full my-auto">
+      
+      <!-- Bio Breve -->
+      <div class="text-center mb-12">
+        <div class="w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden border-2 border-sage-500/40 shadow-xl bg-sage-100 dark:bg-white/10 flex items-center justify-center group hover:scale-105 transition-transform duration-300 ring-4 ring-sage-500/10">
+          <img src="francis-foto.jpg" 
+               alt="Francis (Francisco Manuel Gordillo)" 
+               class="w-full h-full object-cover" 
+               onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');" />
+          <i data-lucide="user" class="w-10 h-10 text-sage-700 dark:text-sage-100 hidden"></i>
+        </div>
+        <span class="text-xs uppercase tracking-widest font-semibold text-sage-500 dark:text-sage-100 block mb-1">Sobre Francisco Manuel Gordillo</span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-normal text-warmgray-900 dark:text-[#F3EFEA] mb-3">
+          Un café con el autor
+        </h2>
+        <p class="text-sm text-warmgray-500 dark:text-[#B6B1A6] font-light max-w-lg mx-auto">
+          ¿Deseas compartir una reflexión sobre el libro o hacerle una pregunta? Escríbele con total confianza.
+        </p>
+      </div>
+
+      <!-- Formulario de Contacto Íntimo -->
+      <form id="contactForm" action="https://formsubmit.co/fgnutrition@hotmail.com" method="POST" class="max-w-xl mx-auto space-y-4">
+        <!-- Parámetros FormSubmit -->
+        <input type="hidden" name="_subject" value="Nuevo mensaje para Francis desde la web (A Dios no se le busca)">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-warmgray-700 dark:text-[#C5BFB5] mb-1.5">Tu Nombre</label>
+            <input type="text" name="nombre" required placeholder="¿Cómo te llamas?" class="w-full px-4 py-3 rounded-2xl bg-white dark:bg-canvas-darkCard border border-black/[0.08] dark:border-white/[0.08] text-sm focus:outline-none focus:border-sage-500 transition">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-warmgray-700 dark:text-[#C5BFB5] mb-1.5">Tu Correo Electrónico</label>
+            <input type="email" name="email" required placeholder="para responderte..." class="w-full px-4 py-3 rounded-2xl bg-white dark:bg-canvas-darkCard border border-black/[0.08] dark:border-white/[0.08] text-sm focus:outline-none focus:border-sage-500 transition">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-warmgray-700 dark:text-[#C5BFB5] mb-1.5">Tu Mensaje o Vivencia</label>
+          <textarea name="mensaje" rows="4" required placeholder="Escribe tu reflexión con calma..." class="w-full px-4 py-3 rounded-2xl bg-white dark:bg-canvas-darkCard border border-black/[0.08] dark:border-white/[0.08] text-sm focus:outline-none focus:border-sage-500 transition"></textarea>
+        </div>
+
+        <!-- Mensaje de estado -->
+        <div id="contactStatus"></div>
+
+        <button type="submit" id="btnSubmitContact" class="w-full py-4 rounded-full bg-warmgray-900 dark:bg-[#EAE4D9] text-white dark:text-[#141413] font-medium text-sm hover:scale-[1.02] transition flex items-center justify-center gap-2 shadow-md disabled:opacity-50 disabled:cursor-not-allowed">
+          <i data-lucide="send" class="w-4 h-4"></i>
+          <span>Enviar carta al autor</span>
+        </button>
+      </form>
+
+    </div>
+
+    <!-- Footer dentro de la sección final -->
+    <footer class="mt-auto pt-8 border-t border-black/[0.05] dark:border-white/[0.06] text-center text-xs text-warmgray-500 dark:text-[#7C7872]">
+      <p>© <span id="year">2026</span> Francisco Manuel Gordillo Borrego. «A Dios no se le busca, se le deja estar»</p>
+    </footer>
+
+  </section>
+
+  <!-- ==================== MODAL: PAUSA DE RESPIRACIÓN ==================== -->
+  <div id="breathingModal" class="fixed inset-0 z-50 bg-[#121211]/90 backdrop-blur-md flex items-center justify-center p-6 hidden opacity-0 transition-opacity duration-500">
+    <div class="max-w-md w-full text-center text-white relative">
+      <button id="btnCloseBreathing" class="absolute -top-12 right-0 p-2 text-white/60 hover:text-white transition">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+
+      <span class="text-xs uppercase tracking-widest text-sage-100/70 font-semibold mb-6 block">Momento de Silencio</span>
+
+      <div class="w-56 h-56 mx-auto my-8 relative flex items-center justify-center">
+        <div id="breatheCircle" class="w-40 h-40 rounded-full bg-gradient-to-tr from-sage-500/40 to-sage-100/30 border border-sage-100/40 animate-breathe flex items-center justify-center shadow-[0_0_50px_rgba(94,122,103,0.35)]"></div>
+        <span id="breathGuideText" class="absolute text-xl font-serif italic text-white tracking-wide pointer-events-none">Inhala...</span>
+      </div>
+
+      <p class="text-sm text-white/80 font-light leading-relaxed mb-6 max-w-sm mx-auto">
+        «Siente cómo entra el aire inhalando por tus fosas nasales y acompaña este hasta tu vientre. Observa esa respiración sin juicio alguno: tú eres el espacio de presencia entre un pensamiento y otro.»
+      </p>
+
+      <button id="btnSoundToggle" class="inline-flex items-center gap-2 text-xs text-sage-100/80 hover:text-white py-2 px-4 rounded-full border border-white/20 transition">
+        <i data-lucide="volume-2" id="soundIcon" class="w-3.5 h-3.5"></i>
+        <span id="soundText">Activar campana 432 Hz</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== DRAWER: LECTOR DE ARTÍCULOS ==================== -->
+  <div id="readerModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-end hidden opacity-0 transition-opacity duration-300">
+    <div class="w-full max-w-2xl bg-[#F7F4EE] dark:bg-[#181816] h-full overflow-y-auto p-8 sm:p-14 shadow-2xl flex flex-col justify-between transform translate-x-full transition-transform duration-300" id="readerPanel">
+      <div>
+        <div class="flex items-center justify-between pb-6 border-b border-black/[0.08] dark:border-white/[0.08] mb-8">
+          <span id="readerCategory" class="text-xs uppercase tracking-widest text-sage-700 dark:text-sage-100 font-semibold">Reflexión</span>
+          <button onclick="closeReader()" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 text-warmgray-500 dark:text-white transition">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <h2 id="readerTitle" class="font-serif text-3xl sm:text-4xl text-warmgray-900 dark:text-white mb-6 leading-tight">Título</h2>
+        <div id="readerContent" class="space-y-4 text-warmgray-700 dark:text-[#C5BFB5] leading-relaxed font-light text-base sm:text-lg"></div>
+
+        <!-- ==================== DIÁLOGO ABIERTO SOBRE LA REFLEXIÓN (CHAT / RESPUESTAS) ==================== -->
+        <div class="mt-12 pt-8 border-t border-black/[0.08] dark:border-white/[0.08]" id="readerDiscussionSection">
+          
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-2">
+              <i data-lucide="message-circle" class="w-5 h-5 text-sage-500"></i>
+              <h3 class="font-serif text-2xl font-normal text-warmgray-900 dark:text-white">
+                Diálogo sobre esta reflexión
+              </h3>
+            </div>
+            <span class="text-xs text-warmgray-500 dark:text-[#8E8A83]" id="commentCount">Respuestas de lectores</span>
+          </div>
+
+          <!-- Lista de mensajes / comentarios del diálogo -->
+          <div id="commentsList" class="space-y-4 mb-8">
+            <div class="py-6 px-4 rounded-2xl border border-dashed border-black/10 dark:border-white/10 text-center text-xs text-warmgray-400">
+              <i data-lucide="feather" class="w-4 h-4 mx-auto mb-1.5 text-sage-500 opacity-60"></i>
+              <span>Sé el primero en compartir lo que te ha suscitado esta reflexión...</span>
+            </div>
+          </div>
+
+          <!-- Formulario para responder sin registro -->
+          <form id="commentForm" class="p-5 rounded-3xl bg-white dark:bg-canvas-darkCard border border-black/[0.07] dark:border-white/[0.08] shadow-sm space-y-3">
+            <span class="text-xs uppercase tracking-wider font-semibold text-sage-700 dark:text-sage-100 block">
+              Deja tu pensamiento (sin registros)
+            </span>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <input type="text" id="commentAuthor" required placeholder="Tu nombre..." class="w-full px-3.5 py-2.5 rounded-xl bg-canvas-light dark:bg-canvas-dark border border-black/[0.08] dark:border-white/[0.08] text-xs focus:outline-none focus:border-sage-500 transition">
+              <input type="email" id="commentEmail" placeholder="Tu correo (opcional, privado)" class="w-full px-3.5 py-2.5 rounded-xl bg-canvas-light dark:bg-canvas-dark border border-black/[0.08] dark:border-white/[0.08] text-xs focus:outline-none focus:border-sage-500 transition">
+            </div>
+
+            <textarea id="commentMessage" rows="3" required placeholder="¿Qué te ha suscitado esta reflexión? Escribe con libertad..." class="w-full px-3.5 py-2.5 rounded-xl bg-canvas-light dark:bg-canvas-dark border border-black/[0.08] dark:border-white/[0.08] text-xs focus:outline-none focus:border-sage-500 transition"></textarea>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-1">
+              <button type="submit" class="w-full sm:w-auto px-5 py-2.5 rounded-full bg-warmgray-900 dark:bg-[#EAE4D9] text-white dark:text-[#121211] font-medium text-xs hover:scale-105 transition flex items-center justify-center gap-1.5 shadow-sm">
+                <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                <span>Publicar en el diálogo</span>
+              </button>
+
+              <button type="button" id="btnWhatsappShare" class="w-full sm:w-auto text-xs text-warmgray-500 dark:text-[#9A958A] hover:text-[#25D366] transition flex items-center justify-center gap-1.5">
+                <i data-lucide="message-square" class="w-3.5 h-3.5 text-[#25D366]"></i>
+                <span>Comentar por WhatsApp</span>
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+      <div class="mt-12 pt-6 border-t border-black/[0.08] dark:border-white/[0.08] flex items-center justify-between text-xs text-warmgray-500 dark:text-[#8E8A83]">
+        <span>Francisco Manuel Gordillo Borrego</span>
+        <button onclick="closeReader()" class="text-sage-700 dark:text-sage-100 font-medium hover:underline">Volver a la web</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SCRIPTS INTERACTIVOS ==================== -->
+  <script>
+    lucide.createIcons();
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ==================== Aura Ambiental que sigue al ratón ====================
+    const aura = document.getElementById('ambientAura');
+    window.addEventListener('mousemove', (e) => {
+      aura.style.left = `${e.clientX}px`;
+      aura.style.top = `${e.clientY}px`;
+    });
+
+    // ==================== Rotación 3D del Libro ====================
+    const bookContainer = document.getElementById('bookContainer');
+    const book3D = document.getElementById('book3D');
+
+    if (bookContainer && book3D) {
+      bookContainer.addEventListener('mousemove', (e) => {
+        const rect = bookContainer.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        const rotateX = -(y / rect.height) * 20;
+        const rotateY = (x / rect.width) * 25;
+        book3D.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+      });
+
+      bookContainer.addEventListener('mouseleave', () => {
+        book3D.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+      });
+    }
+
+    // ==================== Indicadores de Scroll Snap (Dots Activos) ====================
+    const sections = document.querySelectorAll('.snap-section');
+    const navDots = document.querySelectorAll('.nav-dot');
+
+    const observerOptions = {
+      root: null,
+      threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const currentId = entry.target.id;
+          navDots.forEach(dot => {
+            const dotIndicator = dot.querySelector('.dot-indicator');
+            if (dot.getAttribute('data-nav') === currentId) {
+              dotIndicator.classList.add('bg-sage-500', 'scale-125');
+              dotIndicator.classList.remove('bg-transparent');
+            } else {
+              dotIndicator.classList.remove('bg-sage-500', 'scale-125');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => observer.observe(section));
+
+    // ==================== Citas Aleatorias Auténticas ====================
+    const quotes = [
+      {
+        text: "«La Verdad no se la busca, no se la persigue. A la Verdad se le deja inundarte, abandonando lo viejo, la irrealidad de nuestro personaje, entregándonos a la confianza de saber que no debo hacer nada, que en todo momento estoy guiado por Aquel que un día fue, es y será.»",
+        source: "Francis — Capítulo «La verdad Es, Dios Es» (pág. 55)"
+      },
+      {
+        text: "«¡No intentes estar en el ahora, sé el ahora! En el aquí y ahora es donde tienes que estar, Francis, este es tu Hogar, este lugar inmaculado donde la paz y el Amor cubren cualquier poro de tu amplitud.»",
+        source: "Francis — Capítulo «Pregunté y El respondió» (pág. 74)"
+      },
+      {
+        text: "«¡Toda batalla es contra uno mismo! Frena tu fuerza extrema, clava tu gran espada y suelta el escudo abollado de ver un mundo inundado de ataques. Cualquier lucha es el alimento más deseado por el ego.»",
+        source: "Francis — Capítulo «El guerrero» (pág. 37)"
+      },
+      {
+        text: "«El Dios al que se refiere en este libro no tiene nada que ver con el dios del que nos han hablado. La puerta siempre estuvo abierta. Mejor dicho, ¡nunca hubo una puerta!»",
+        source: "Francis — «Aclaración importante» (pág. 7)"
+      },
+      {
+        text: "«Aprende a ser quien eres y no como te gustaría ser y ten esto siempre dentro de ti. Debemos y tenemos que aprender a aceptarnos, a integrarnos a nosotros mismos. Ahí yace la llave del tesoro.»",
+        source: "Nieve (hija de Francis, a los diez años) — Prólogo (pág. 8)"
+      },
+      {
+        text: "«Meditar es saber que eres el mismo Cielo y no las nubes (pensamientos) que acontecen por este: no les demos credibilidad. La meditación no es más que recordar cada vez que puedas que eres la Divina presencia misma.»",
+        source: "Francis — Capítulo «La meditación Es» (pág. 48)"
+      },
+      {
+        text: "«Las nubes (pensamientos) pueden tapar la luz que eres por momentos, pero nunca podrán afectar a la Esencia que yace en Ti. Las nubes seguirán su curso, pero Tú como esencia seguirás dejando que acontezca todo lo que surja en el cielo.»",
+        source: "Francis — «Dibujos que me enseñaron» (pág. 129)"
+      },
+      {
+        text: "«No hay enfrentamiento con las emociones no queridas, no hay evasión, no hay huida. Simplemente, hay aceptación, dejando estar lo acontecido, sabiendo que estoy totalmente a salvo.»",
+        source: "Francis — Capítulo «Vagabundo y moribundo» (pág. 28)"
+      },
+      {
+        text: "«Dentro de ellos mismos nunca la encontrarán. El hombre siempre estará buscando fuera, distraído. Amigo mío, es hora de que empieces a mirar, a observar dentro de ti: ahí están todas las respuestas.»",
+        source: "Francis — «Cuento popular Los tres demonios y la felicidad» (pág. 36)"
+      },
+      {
+        text: "«Soy el espacio de presencia que hay entre un pensamiento y otro. Ese es mi Templo. Estoy, Soy, aquí con Él.»",
+        source: "Francis — Capítulo «Decretos firmes» (pág. 145)"
+      }
+    ];
+
+    let currentQuoteIdx = 0;
+    const quoteText = document.getElementById('quoteText');
+    const quoteSource = document.getElementById('quoteSource');
+    const btnNextQuote = document.getElementById('btnNextQuote');
+    const btnCopyQuote = document.getElementById('btnCopyQuote');
+    const copyStatus = document.getElementById('copyStatus');
+
+    btnNextQuote.addEventListener('click', () => {
+      quoteText.classList.add('opacity-0');
+      setTimeout(() => {
+        currentQuoteIdx = (currentQuoteIdx + 1) % quotes.length;
+        quoteText.textContent = quotes[currentQuoteIdx].text;
+        quoteSource.textContent = quotes[currentQuoteIdx].source;
+        quoteText.classList.remove('opacity-0');
+      }, 250);
+    });
+
+    btnCopyQuote.addEventListener('click', () => {
+      const fullText = `${quotes[currentQuoteIdx].text} — Francisco Manuel Gordillo Borrego`;
+      navigator.clipboard.writeText(fullText).then(() => {
+        copyStatus.textContent = '¡Copiado!';
+        setTimeout(() => copyStatus.textContent = 'Copiar cita', 2000);
+      });
+    });
+
+    // ==================== Filtro del Blog ====================
+    function filterBlog(category, btnElement) {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-warmgray-900', 'dark:bg-white', 'text-white', 'dark:text-warmgray-900');
+        btn.classList.add('bg-black/[0.04]', 'dark:bg-white/[0.06]', 'text-warmgray-700', 'dark:text-[#C5BFB5]');
+      });
+
+      btnElement.classList.add('bg-warmgray-900', 'dark:bg-white', 'text-white', 'dark:text-warmgray-900');
+      btnElement.classList.remove('bg-black/[0.04]', 'dark:bg-white/[0.06]', 'text-warmgray-700', 'dark:text-[#C5BFB5]');
+
+      const cards = document.querySelectorAll('.blog-card');
+      cards.forEach(card => {
+        if (category === 'todos' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // ==================== Modo Día / Noche ====================
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      htmlElement.classList.add('dark');
+    }
+    themeToggle.addEventListener('click', () => htmlElement.classList.toggle('dark'));
+
+    // ==================== Modal Respiración ====================
+    const btnOpenBreathing = document.getElementById('btnOpenBreathing');
+    const btnCloseBreathing = document.getElementById('btnCloseBreathing');
+    const breathingModal = document.getElementById('breathingModal');
+    const breathGuideText = document.getElementById('breathGuideText');
+    let breathInterval = null;
+
+    btnOpenBreathing.addEventListener('click', () => {
+      breathingModal.classList.remove('hidden');
+      setTimeout(() => breathingModal.classList.remove('opacity-0'), 20);
+      startBreathGuide();
+    });
+
+    btnCloseBreathing.addEventListener('click', closeBreathingModal);
+    breathingModal.addEventListener('click', (e) => {
+      if (e.target === breathingModal) closeBreathingModal();
+    });
+
+    function closeBreathingModal() {
+      breathingModal.classList.add('opacity-0');
+      setTimeout(() => {
+        breathingModal.classList.add('hidden');
+        clearInterval(breathInterval);
+      }, 500);
+    }
+
+    function startBreathGuide() {
+      let state = 0;
+      breathGuideText.textContent = "Inhala...";
+      clearInterval(breathInterval);
+      breathInterval = setInterval(() => {
+        state = (state + 1) % 3;
+        if (state === 0) breathGuideText.textContent = "Inhala...";
+        else if (state === 1) breathGuideText.textContent = "Sostén...";
+        else breathGuideText.textContent = "Exhala el ruido...";
+      }, 3500);
+    }
+
+    // Campana de sonido Web Audio API (432 Hz)
+    let audioCtx = null;
+    let soundEnabled = false;
+    const btnSoundToggle = document.getElementById('btnSoundToggle');
+    const soundText = document.getElementById('soundText');
+
+    btnSoundToggle.addEventListener('click', () => {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      soundEnabled = !soundEnabled;
+      if (soundEnabled) {
+        playBowl();
+        soundText.textContent = 'Campana activa';
+      } else {
+        soundText.textContent = 'Activar campana 432 Hz';
+      }
+    });
+
+    function playBowl() {
+      if (!audioCtx || !soundEnabled) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(432, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 3.5);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 3.5);
+      } catch (e) {}
+    }
+
+    // ==================== Lector de Artículos & Diálogo ====================
+    let currentArticleId = 1;
+    const readerModal = document.getElementById('readerModal');
+    const readerPanel = document.getElementById('readerPanel');
+    const readerTitle = document.getElementById('readerTitle');
+    const readerCategory = document.getElementById('readerCategory');
+    const readerContent = document.getElementById('readerContent');
+    const readerDiscussionSection = document.getElementById('readerDiscussionSection');
+    const commentsList = document.getElementById('commentsList');
+    const commentForm = document.getElementById('commentForm');
+    const btnWhatsappShare = document.getElementById('btnWhatsappShare');
+
+    function openReader(id) {
+      currentArticleId = id;
+      const data = articlesData[id];
+      if (!data) return;
+      readerCategory.textContent = data.category;
+      readerTitle.textContent = data.title;
+      readerContent.innerHTML = data.content;
+
+      // Ocultar diálogo si es extracto del libro, mostrar si es artículo del autor
+      if (id === 'excerpt') {
+        readerDiscussionSection.classList.add('hidden');
+      } else {
+        readerDiscussionSection.classList.remove('hidden');
+        renderCommentsForArticle(id);
+      }
+
+      readerModal.classList.remove('hidden');
+      setTimeout(() => {
+        readerModal.classList.remove('opacity-0');
+        readerPanel.classList.remove('translate-x-full');
+      }, 20);
+    }
+
+    function renderCommentsForArticle(id) {
+      const stored = localStorage.getItem('comments_art_' + id);
+      const customComments = stored ? JSON.parse(stored) : [];
+      
+      if (customComments.length === 0) {
+        commentsList.innerHTML = `
+          <div class="py-6 px-4 rounded-2xl border border-dashed border-black/10 dark:border-white/10 text-center text-xs text-warmgray-400">
+            <i data-lucide="feather" class="w-4 h-4 mx-auto mb-1.5 text-sage-500 opacity-60"></i>
+            <span>Sé el primero en compartir lo que te ha suscitado esta reflexión...</span>
+          </div>
+        `;
+        document.getElementById('commentCount').textContent = 'Sin respuestas aún';
+      } else {
+        const customHtml = customComments.map(c => `
+          <div class="p-4 rounded-2xl bg-white dark:bg-canvas-darkCard border border-sage-500/30 text-xs shadow-xs">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-semibold text-warmgray-900 dark:text-white flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-sage-500/20 text-sage-700 dark:text-sage-100 flex items-center justify-center font-bold text-[10px]">${c.author.charAt(0).toUpperCase()}</span>
+                ${escapeHtml(c.author)}
+              </span>
+              <span class="text-warmgray-400 text-[10px]">${c.date || 'Reciente'}</span>
+            </div>
+            <p class="text-warmgray-700 dark:text-[#B8B2A7] leading-relaxed font-light">
+              «${escapeHtml(c.message)}»
+            </p>
+          </div>
+        `).join('');
+
+        commentsList.innerHTML = customHtml;
+        document.getElementById('commentCount').textContent = customComments.length === 1 ? '1 respuesta compartida' : `${customComments.length} respuestas compartidas`;
+      }
+      lucide.createIcons();
+    }
+
+    if (commentForm) {
+      commentForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const author = document.getElementById('commentAuthor').value.trim();
+        const email = document.getElementById('commentEmail').value.trim();
+        const message = document.getElementById('commentMessage').value.trim();
+        if (!author || !message) return;
+
+        const stored = localStorage.getItem('comments_art_' + currentArticleId);
+        const comments = stored ? JSON.parse(stored) : [];
+        comments.unshift({ author, email, message, date: 'Hace un momento' });
+        localStorage.setItem('comments_art_' + currentArticleId, JSON.stringify(comments));
+
+        document.getElementById('commentMessage').value = '';
+        renderCommentsForArticle(currentArticleId);
+        alert('¡Gracias por tus palabras, ' + author + '! Tu reflexión ha sido añadida al diálogo con Francis.');
+      });
+    }
+
+    if (btnWhatsappShare) {
+      btnWhatsappShare.addEventListener('click', () => {
+        const art = articlesData[currentArticleId];
+        const title = art ? art.title : 'Reflexión';
+        const text = encodeURIComponent(`Hola Francis, he leído tu reflexión «${title}» y me gustaría comentarte algo: `);
+        window.open(`https://wa.me/?text=${text}`, '_blank');
+      });
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    const articlesData = {
+      'la-verdad-es': {
+        category: "Presencia",
+        title: "La verdad Es, Dios Es",
+        content: `
+          <p class="first-letter:text-5xl first-letter:font-serif first-letter:float-left first-letter:mr-3 first-letter:text-sage-500">E</p><p>n muchos momentos en que navegamos en este mundo espiritual de vuelta a nuestro verdadero Hogar, intenté en varias ocasiones describir a Dios, al Todo. Y esta es la manera de describirlo. Es la que más sentí acercarme, cosa que es imposible de describir, pues es un sentir, un saber, simplemente Es.</p>
+          <p>Cuando la Verdad emana sin conocer espacio y tiempo, extendiéndose más allá de los límites sin finales, eclosionando al unísono, el cual no conoce intensidades, no conoce descripciones, pues en ella es lo Amado, ella es lo intocable, ella es el fin de las palabras. Imposible describirla, pues se escapa de las yemas de nuestros dedos y, pues, también del entendimiento de nuestras mentes limitadas de creencias instauradas como murallas de alambres de espinos oxidados.</p>
+          <p class="font-serif italic text-xl border-l-2 border-sage-500 pl-4 my-6 text-warmgray-900 dark:text-white">
+            «La Verdad se escapa ante cualquier posibilidad de apropiarnos de Ella. La Verdad no se la busca, no se la persigue. A la Verdad se le deja inundarte, abandonando lo viejo, la irrealidad de nuestro personaje, entregándonos a la confianza de saber que no debo hacer nada, que en todo momento estoy guiado, acompañado por Aquel que un día fue, es y será de un Verbo que no conoció tiempo y su Amor acontece en lo Eterno.»
+          </p>
+          <div class="mt-8 pt-4 border-t border-black/10 dark:border-white/10 flex items-center gap-3 text-xs text-warmgray-500">
+            <img src="francis-foto.jpg" class="w-9 h-9 rounded-full object-cover border border-sage-500/30" />
+            <div>
+              <span class="font-medium text-warmgray-900 dark:text-white block">Francisco Manuel Gordillo Borrego</span>
+              <span>Capítulo «La verdad Es, Dios Es» (pág. 55)</span>
+            </div>
+          </div>
+        `
+      },
+      'el-guerrero': {
+        category: "Presencia",
+        title: "El guerrero: toda batalla es contra uno mismo",
+        content: `
+          <p class="first-letter:text-5xl first-letter:font-serif first-letter:float-left first-letter:mr-3 first-letter:text-sage-500">A</p><p>sí que, mi querido guerrero, con armadura de plata que deslumbras en los atardeceres donde el sol se despide, firme, erguido a lomos de un caballo blanco y robusto, a galope te diriges a una batalla que nunca existió.</p>
+          <p>Frena tu fuerza extrema, descabalga dirigiéndote ante ella, clava tu gran espada pulida y brillante, pero dentada de tantas batallas de un guion interminable en la tierra de las mentiras. Con decisión, suelta el escudo abollado y mullido por tantas defensas de ver un mundo inundado de ataques.</p>
+          <p class="font-serif italic text-xl border-l-2 border-sage-500 pl-4 my-6 text-warmgray-900 dark:text-white">
+            «Postrado, abre los ojos del corazón para darte cuenta, pues, de que toda batalla es fingida. ¡Toda batalla es contra uno mismo! Ahí detenido, sonríe para saber que ya no puedes ser más engañado, que toda batalla es solo para alimentar a un actor que sediento de guiones nunca se siente saciado.»
+          </p>
+          <p>Dejemos de luchar, querido amigo, es el momento. Cualquier lucha, cualquier batalla es el alimento más deseado por nuestro amigo el ego.</p>
+          <p>El verdadero guerrero es el que mantiene su fe instaurada como prioritaria en el mundo de los límites. Es el que ve surgir los guiones ficticios carentes de realidad. Es el que mantiene una sonrisa perpetua y nunca se desdibuja de su rostro ante cualquier experiencia ardua vivida. El verdadero guerrero es aquel que te llena de Paz con su mirada transmitiendo la confianza de saber que nunca estás solo.</p>
+          <div class="mt-8 pt-4 border-t border-black/10 dark:border-white/10 flex items-center gap-3 text-xs text-warmgray-500">
+            <img src="francis-foto.jpg" class="w-9 h-9 rounded-full object-cover border border-sage-500/30" />
+            <div>
+              <span class="font-medium text-warmgray-900 dark:text-white block">Francisco Manuel Gordillo Borrego</span>
+              <span>Capítulo «El guerrero» (págs. 20 y 37)</span>
+            </div>
+          </div>
+        `
+      },
+      'pregunte-y-el-respondio': {
+        category: "Diálogos",
+        title: "Pregunté y El respondió: Diálogos con el Yo Soy",
+        content: `
+          <p class="first-letter:text-5xl first-letter:font-serif first-letter:float-left first-letter:mr-3 first-letter:text-sage-500">C</p><p>on la ilusión de vender mi negocio y marchar a vivir a una casa en un pequeño pueblo que estuviera retirado de la vida frenética de la ciudad, de una vida ajetreada, comenzaron mis preguntas. Y conforme preguntaba fueron llegando respuestas.</p>
+          <div class="space-y-4 my-6 pl-4 border-l-2 border-sage-500/40 font-sans text-sm leading-relaxed">
+            <p><strong>F:</strong> ¿Qué quieres que haga?<br><strong>R:</strong> Estar en alerta en favor de Dios y declarar inexistentes tus proyecciones y percepciones.</p>
+            <p><strong>F:</strong> ¿Adónde quieres que vaya?<br><strong>R:</strong> Quédate en tu sitio y desde ahí da luz a los que te rodeen.</p>
+            <p><strong>F:</strong> ¿Qué quieres que diga y a quién?<br><strong>R:</strong> Háblales a ellos, a los que se te acercarán, ellos te preguntarán.</p>
+            <p><strong>F:</strong> ¿Qué es la salvación, Padre? No lo sé, dímelo para que lo pueda entender.<br><strong>R:</strong> La salvación es cuando tomas conciencia de tu Ser y tu Ser no es tu cuerpo. Tu ser es un fragmento de Dios, entonces a los lazos de apego con el cuerpo se les quita realidad.</p>
+            <p><strong>F:</strong> ¿Por qué sigo con tantos conflictos y división?<br><strong>R:</strong> Una parte de tu mente se resiste a cambiar, no quiere, aún se cree al ego. Recuerda que te acercas al centro del ego, él no quiere que lo veas, te quiere engañar. Tu determinación es la que te dará la realidad que tú deseas. Sigue, hijo mío, tranquilo con sus estratagemas que fuerzan tus puntos débiles. No te las creas, hijo, no te las creas.</p>
+            <p><strong>F:</strong> Padre, ¿crees que puedo contar todo lo que me dices?<br><strong>R:</strong> Hijo, cuéntalo si crees que pueden beneficiar a alguien, pero no si crees que eres mejor por recibirlo.</p>
+            <p><strong>Respuesta sigue:</strong> «Busca el espacio, entre pensamiento y pensamiento ahí estoy Yo. ¡No intentes estar en el ahora, sé el ahora!»</p>
+          </div>
+          <p>Detrás de la niebla del pensamiento del ego se encuentra el Cielo. ¡Atraviésala! Ahí estamos.</p>
+          <div class="mt-8 pt-4 border-t border-black/10 dark:border-white/10 flex items-center gap-3 text-xs text-warmgray-500">
+            <img src="francis-foto.jpg" class="w-9 h-9 rounded-full object-cover border border-sage-500/30" />
+            <div>
+              <span class="font-medium text-warmgray-900 dark:text-white block">Francisco Manuel Gordillo Borrego</span>
+              <span>Capítulo «Pregunté y El respondió» (págs. 63-65)</span>
+            </div>
+          </div>
+        `
+      },
+      'excerpt': {
+        category: "Extracto Oficial del Libro",
+        title: "Aclaración preliminar & Prólogo",
+        content: `
+          <p class="first-letter:text-5xl first-letter:font-serif first-letter:float-left first-letter:mr-3 first-letter:text-sage-500">U</p><p>na aclaración muy importante para ti, lector. Al leer pausadamente este libro, no te condiciones por las creencias que inconsciente o conscientemente has o te han podido instaurar a lo largo de tu vida. Como, por ejemplo, la palabra Dios, la conclusión que has formado o sacado de ella. De esta palabra quizás la más controvertida de la historia de la humanidad, pudiéndote ver confundido o extraviado del verdadero significado que se le da en este manuscrito, sacando conclusiones muy alejadas de la verdadera comprensión de su significado.</p>
+          <p class="font-serif italic text-xl border-l-2 border-sage-500 pl-4 my-6 text-warmgray-900 dark:text-white">
+            «El Dios al que se refiere en este libro no tiene nada que ver con el dios del que nos han hablado.»
+          </p>
+          <p>Al describir esta inteligencia eterna, la palabra en la que he decidido describirla o referirme a ella es Dios, o Padre o Verdad. Pero es muy importante saber que es la misma en significados como Krishna, la Fuente, Ser Supremo, el Todo, Yo Soy, Numen, Bhagavan, Gracia, Divinidad, Universo, etc.</p>
+          <p class="font-serif text-lg font-medium text-sage-600 dark:text-sage-300 my-4">
+            «La puerta siempre estuvo abierta. Mejor dicho, ¡nunca hubo una puerta!»
+          </p>
+          <div class="mt-8 pt-6 border-t border-black/10 dark:border-white/10">
+            <h4 class="font-serif text-xl font-normal text-warmgray-900 dark:text-white mb-2">La llave del tesoro (Palabras de Nieve, a los diez años)</h4>
+            <p class="italic text-sm text-warmgray-700 dark:text-[#C5BFB5] bg-white/50 dark:bg-black/20 p-4 rounded-2xl border border-black/5 dark:border-white/5 leading-relaxed">
+              «Con la edad de diez años, mi hija, Nieve, me dijo una tarde en la que compartíamos actividades como juegos, cuentos, etc.:<br>
+              —Papá, corre, corre, coge lápiz y papel.<br>
+              —Dime, mi amor, dime. ¿Qué pasa?<br>
+              —Papi, escribe: <strong>“Aprende a ser quien eres y no como te gustaría ser y ten esto siempre dentro de ti. Debemos y tenemos que aprender a aceptarnos, a integrarnos a nosotros mismos. Ahí yace la llave del tesoro”</strong>.»
+            </p>
+          </div>
+          <div class="mt-8 p-6 rounded-2xl bg-sage-50 dark:bg-canvas-dark border border-sage-500/20 text-center">
+            <h4 class="font-serif text-xl font-normal text-warmgray-900 dark:text-white mb-2">Continúa la lectura en el libro completo</h4>
+            <p class="text-xs text-warmgray-500 dark:text-[#A7A298] mb-4">Disponible en formato físico y digital en librerías oficiales:</p>
+            <div class="flex flex-wrap justify-center gap-2">
+              <a href="https://www.casadellibro.com/libro-a-dios-no-se-le-busca-se-le-deja-estar-dios-es/9791387763305/17115575" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white dark:bg-canvas-darkCard border border-black/10 dark:border-white/10 text-xs font-semibold hover:border-[#006C35] transition shadow-xs">
+                <img src="cdl-v.svg" alt="Casa del Libro" class="w-4 h-4 object-contain bg-[#006C35] p-0.5 rounded" />
+                <span>Casa del Libro</span>
+              </a>
+              <a href="https://www.fnac.es/a12088903/Francisco-Manuel-Gordillo-Borrego-A-Dios-No-Se-Le-Busca-Se-Le-Deja-Estar-Dios-Es" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white dark:bg-canvas-darkCard border border-black/10 dark:border-white/10 text-xs font-semibold hover:border-[#EBB300] transition shadow-xs">
+                <img src="fnac.svg" alt="Fnac" class="w-4 h-4 object-contain rounded" />
+                <span>Fnac</span>
+              </a>
+              <a href="https://www.amazon.es/Dios-busca-deja-estar-DIOS/dp/B0FDWCLP79" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white dark:bg-canvas-darkCard border border-black/10 dark:border-white/10 text-xs font-semibold hover:border-[#FF9900] transition shadow-xs">
+                <img src="amazon.svg" alt="Amazon" class="w-4 h-auto object-contain bg-white p-0.5 rounded" />
+                <span>Amazon</span>
+              </a>
+              <a href="https://www.caligramaeditorial.com/libro/A-Dios-no-se-le-busca-se-le-deja-estar-DIOS-ES" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white dark:bg-canvas-darkCard border border-black/10 dark:border-white/10 text-xs font-semibold hover:border-terracotta transition shadow-xs">
+                <img src="caligrama.png" alt="Caligrama" class="w-4 h-4 object-contain rounded" />
+                <span>Caligrama</span>
+              </a>
+            </div>
+          </div>
+        `
+      }
+    };
+
+    function openReader(id) {
+      const data = articlesData[id];
+      if (!data) return;
+      readerCategory.textContent = data.category;
+      readerTitle.textContent = data.title;
+      readerContent.innerHTML = data.content;
+
+      readerModal.classList.remove('hidden');
+      setTimeout(() => {
+        readerModal.classList.remove('opacity-0');
+        readerPanel.classList.remove('translate-x-full');
+      }, 20);
+    }
+
+    function closeReader() {
+      readerPanel.classList.add('translate-x-full');
+      readerModal.classList.add('opacity-0');
+      setTimeout(() => readerModal.classList.add('hidden'), 300);
+    }
+
+    document.getElementById('btnOpenExcerpt').addEventListener('click', () => openReader('excerpt'));
+    readerModal.addEventListener('click', (e) => {
+      if (e.target === readerModal) closeReader();
+    });
+
+    function getCategorySlug(cat) {
+      if (!cat) return 'todos';
+      const c = cat.toLowerCase();
+      if (c.includes('ego') || c.includes('sombra')) return 'ego';
+      if (c.includes('presencia')) return 'presencia';
+      if (c.includes('diálogo') || c.includes('dialogo') || c.includes('pregunta')) return 'preguntas';
+      if (c.includes('cuento')) return 'cuentos';
+      if (c.includes('silencio')) return 'silencio';
+      return 'todos';
+    }
+
+    function formatArticleContent(body) {
+      if (!body) return '';
+      let html = body.trim();
+      if (!html.includes('<p>') && !html.includes('<div>')) {
+        html = html.split(/\n\s*\n/).map(p => `<p class="mb-4">${p.trim().replace(/\n/g, '<br>')}</p>`).join('');
+      }
+      return html;
+    }
+
+    function renderReflectionsGrid(items) {
+      const grid = document.getElementById('blogGrid');
+      if (!grid || !Array.isArray(items) || items.length === 0) return;
+
+      grid.innerHTML = '';
+
+      items.forEach((item, index) => {
+        const id = item.id || `art-${index + 1}`;
+        const catSlug = getCategorySlug(item.category);
+        const excerpt = item.excerpt || (item.body ? item.body.replace(/<[^>]*>?/gm, '').slice(0, 140) + '...' : '');
+
+        articlesData[id] = {
+          category: item.category || 'Reflexión',
+          title: item.title,
+          content: formatArticleContent(item.body || item.content)
+        };
+
+        const articleEl = document.createElement('article');
+        articleEl.className = 'blog-card group bg-white dark:bg-canvas-darkCard rounded-3xl p-8 border border-black/[0.06] dark:border-white/[0.07] hover:border-sage-500/50 hover:shadow-2xl transition duration-500 flex flex-col justify-between cursor-pointer';
+        articleEl.setAttribute('data-category', catSlug);
+        articleEl.onclick = () => openReader(id);
+
+        articleEl.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between text-xs text-warmgray-500 dark:text-[#938F87] mb-5">
+              <span class="px-3 py-1 rounded-full bg-sage-50 dark:bg-sage-900/40 text-sage-700 dark:text-sage-100 font-medium">${escapeHtml(item.category || 'Reflexión')}</span>
+              <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5"></i> ${escapeHtml(item.read_time || '3 min')}</span>
+            </div>
+            <h3 class="font-serif text-2xl sm:text-3xl font-normal group-hover:text-sage-500 dark:group-hover:text-sage-100 transition mb-4 leading-snug">
+              ${escapeHtml(item.title)}
+            </h3>
+            <p class="text-sm text-warmgray-500 dark:text-[#B3ADA2] line-clamp-3 leading-relaxed font-light">
+              ${escapeHtml(excerpt)}
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-black/[0.05] dark:border-white/[0.05] flex items-center justify-between text-xs font-medium text-warmgray-900 dark:text-white">
+            <span>Abrir lectura inmersiva</span>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition"></i>
+          </div>
+        `;
+        grid.appendChild(articleEl);
+      });
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // Cargar reflexiones dinámicas desde data/reflexiones.json
+    fetch('data/reflexiones.json')
+      .then(res => {
+        if (!res.ok) throw new Error('Status ' + res.status);
+        return res.json();
+      })
+      .then(items => {
+        if (Array.isArray(items) && items.length > 0) {
+          renderReflectionsGrid(items);
+        }
+      })
+      .catch(err => {
+        console.warn('Cargando tarjetas por defecto');
+      });
+
+    // Redirección de Netlify Identity al panel de autor
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+
+    // Envío del formulario de contacto directamente a fgnutrition@hotmail.com
+    const contactForm = document.getElementById('contactForm');
+    const contactStatus = document.getElementById('contactStatus');
+    const btnSubmitContact = document.getElementById('btnSubmitContact');
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const originalContent = btnSubmitContact.innerHTML;
+        btnSubmitContact.disabled = true;
+        btnSubmitContact.innerHTML = '<span class="inline-flex items-center gap-2">Enviando mensaje con serenidad...</span>';
+        contactStatus.innerHTML = '';
+
+        const formData = new FormData(contactForm);
+
+        try {
+          const res = await fetch("https://formsubmit.co/ajax/fgnutrition@hotmail.com", {
+            method: "POST",
+            headers: {
+              'Accept': 'application/json'
+            },
+            body: formData
+          });
+
+          if (res.ok) {
+            contactForm.reset();
+            contactStatus.innerHTML = `
+              <div class="p-4 rounded-2xl bg-sage-50 dark:bg-sage-900/40 border border-sage-200 dark:border-sage-700/50 text-sage-800 dark:text-sage-200 text-sm flex items-start gap-3 text-left">
+                <i data-lucide="check-circle" class="w-5 h-5 text-sage-600 dark:text-sage-300 shrink-0 mt-0.5"></i>
+                <div>
+                  <p class="font-medium">¡Tu mensaje ha sido enviado a Francisco Manuel!</p>
+                  <p class="text-xs opacity-90 mt-0.5">Gracias por tus palabras. Te responderá a tu correo en cuanto le sea posible.</p>
+                </div>
+              </div>
+            `;
+          } else {
+            throw new Error('Error al procesar envío');
+          }
+        } catch (error) {
+          contactStatus.innerHTML = `
+            <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-900/40 border border-amber-200 dark:border-amber-700/50 text-amber-800 dark:text-amber-200 text-sm text-left">
+              <p class="font-medium">No se pudo enviar en este momento.</p>
+              <p class="text-xs opacity-90 mt-0.5">Puedes escribirle directamente a su correo personal: <a href="mailto:fgnutrition@hotmail.com" class="underline font-semibold">fgnutrition@hotmail.com</a></p>
+            </div>
+          `;
+        } finally {
+          btnSubmitContact.disabled = false;
+          btnSubmitContact.innerHTML = originalContent;
+          if (window.lucide) lucide.createIcons();
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
