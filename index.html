@@ -125,11 +125,159 @@
 
     /* 3D perspective for book hover */
     .perspective-1000 {
-      perspective: 1000px;
+      perspective: 1200px;
     }
     .book-3d {
       transform-style: preserve-3d;
-      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: transform;
+    }
+
+    /* Animación al pulsar el libro: aumento de tamaño y hojeo de páginas */
+    .book-3d.is-flipping {
+      animation: bookElevateAndScale 1.8s cubic-bezier(0.25, 1, 0.4, 1) forwards;
+    }
+
+    @keyframes bookElevateAndScale {
+      0% {
+        transform: scale(1) rotateX(0deg) rotateY(0deg);
+      }
+      18% {
+        transform: scale(1.1) rotateX(3deg) rotateY(-11deg) translateY(-8px);
+      }
+      70% {
+        transform: scale(1.1) rotateX(2deg) rotateY(-9deg) translateY(-6px);
+      }
+      85% {
+        transform: scale(1.04) rotateX(1deg) rotateY(-4deg) translateY(-2px);
+      }
+      100% {
+        transform: scale(1) rotateX(0deg) rotateY(0deg) translateY(0px);
+      }
+    }
+
+    /* La portada frontal siempre se mantiene visible al frente */
+    .book-cover-front {
+      transform-origin: left center;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+    }
+
+    .book-3d.is-flipping .book-cover-front {
+      animation: coverPageLift 1.8s ease-in-out forwards;
+    }
+
+    @keyframes coverPageLift {
+      0% {
+        transform: translateZ(0) rotateY(0deg);
+        box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+      }
+      18% {
+        transform: translateZ(18px) rotateY(-3.5deg);
+        box-shadow: -10px 22px 35px -5px rgba(0,0,0,0.45);
+      }
+      45% {
+        transform: translateZ(22px) rotateY(-2.5deg) translateY(-2px);
+      }
+      75% {
+        transform: translateZ(14px) rotateY(-1deg);
+      }
+      100% {
+        transform: translateZ(0) rotateY(0deg);
+        box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+      }
+    }
+
+    /* Estilos y texturas de las páginas interiores */
+    .book-page {
+      transform-origin: left center;
+      will-change: transform;
+      pointer-events: none;
+      background-image: repeating-linear-gradient(
+        180deg,
+        transparent,
+        transparent 14px,
+        rgba(180, 160, 140, 0.08) 14px,
+        rgba(180, 160, 140, 0.08) 15px
+      );
+    }
+
+    /* Animación de hojeo en abanico (página por página con efecto ráfaga) */
+    .book-3d.is-flipping .book-page-1 {
+      animation: flipPage1 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes flipPage1 {
+      0% { transform: rotateY(0deg) translateX(0px); }
+      20% { transform: rotateY(-8deg) translateX(12px) skewY(0.5deg); }
+      35% { transform: rotateY(-4deg) translateX(6px) skewY(-0.3deg); }
+      50% { transform: rotateY(-9deg) translateX(14px) skewY(0.4deg); }
+      65% { transform: rotateY(-3deg) translateX(5px) skewY(-0.2deg); }
+      85% { transform: rotateY(-5deg) translateX(7px); }
+      100% { transform: rotateY(0deg) translateX(0px); }
+    }
+
+    .book-3d.is-flipping .book-page-2 {
+      animation: flipPage2 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes flipPage2 {
+      0% { transform: rotateY(0deg) translateX(0px); }
+      18% { transform: rotateY(-14deg) translateX(20px) skewY(1deg); }
+      32% { transform: rotateY(-7deg) translateX(10px) skewY(-0.5deg); }
+      48% { transform: rotateY(-15deg) translateX(22px) skewY(0.8deg); }
+      66% { transform: rotateY(-6deg) translateX(9px) skewY(-0.4deg); }
+      85% { transform: rotateY(-9deg) translateX(13px); }
+      100% { transform: rotateY(0deg) translateX(0px); }
+    }
+
+    .book-3d.is-flipping .book-page-3 {
+      animation: flipPage3 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes flipPage3 {
+      0% { transform: rotateY(0deg) translateX(0px); }
+      16% { transform: rotateY(-20deg) translateX(28px) skewY(1.4deg); }
+      30% { transform: rotateY(-11deg) translateX(16px) skewY(-0.7deg); }
+      46% { transform: rotateY(-22deg) translateX(30px) skewY(1.2deg); }
+      68% { transform: rotateY(-8deg) translateX(12px) skewY(-0.5deg); }
+      85% { transform: rotateY(-13deg) translateX(18px); }
+      100% { transform: rotateY(0deg) translateX(0px); }
+    }
+
+    .book-3d.is-flipping .book-page-4 {
+      animation: flipPage4 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes flipPage4 {
+      0% { transform: rotateY(0deg) translateX(0px); }
+      14% { transform: rotateY(-26deg) translateX(36px) skewY(1.8deg); }
+      28% { transform: rotateY(-15deg) translateX(22px) skewY(-0.9deg); }
+      45% { transform: rotateY(-28deg) translateX(38px) skewY(1.5deg); }
+      70% { transform: rotateY(-11deg) translateX(16px) skewY(-0.6deg); }
+      85% { transform: rotateY(-16deg) translateX(23px); }
+      100% { transform: rotateY(0deg) translateX(0px); }
+    }
+
+    .book-3d.is-flipping .book-page-5 {
+      animation: flipPage5 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes flipPage5 {
+      0% { transform: rotateY(0deg) translateX(0px); }
+      12% { transform: rotateY(-34deg) translateX(46px) skewY(2.2deg); }
+      26% { transform: rotateY(-19deg) translateX(27px) skewY(-1.1deg); }
+      44% { transform: rotateY(-36deg) translateX(48px) skewY(1.9deg); }
+      72% { transform: rotateY(-14deg) translateX(20px) skewY(-0.8deg); }
+      85% { transform: rotateY(-20deg) translateX(28px); }
+      100% { transform: rotateY(0deg) translateX(0px); }
+    }
+
+    /* Canto derecho de hojas que se ensancha al hojear */
+    .book-3d.is-flipping .book-edge {
+      animation: edgeExpand 1.8s ease-in-out forwards;
+    }
+    @keyframes edgeExpand {
+      0% { width: 10px; opacity: 0.9; }
+      25% { width: 26px; opacity: 0.7; }
+      50% { width: 28px; opacity: 0.75; }
+      75% { width: 18px; opacity: 0.85; }
+      100% { width: 10px; opacity: 0.9; }
     }
   </style>
 </head>
@@ -437,25 +585,55 @@
       
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         
-        <!-- Mockup 3D Interactivo con la PORTADA REAL del libro -->
-        <div class="lg:col-span-5 flex justify-center perspective-1000 py-4" id="bookContainer">
-          <div id="book3D" class="book-3d relative w-64 sm:w-80 aspect-[1/1.5] rounded-r-2xl rounded-l-sm shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] select-none cursor-pointer overflow-hidden border-l-4 border-l-[#2E2824] bg-neutral-900 group">
+        <!-- Mockup 3D Interactivo con la PORTADA REAL del libro y efecto de hojeo -->
+        <div class="lg:col-span-5 flex flex-col items-center justify-center perspective-1000 py-6" id="bookContainer">
+          
+          <div id="book3D" class="book-3d relative w-64 sm:w-80 aspect-[1/1.5] select-none cursor-pointer group" title="Haz clic en el libro para hojearlo">
             
-            <!-- Portada Real del Libro -->
-            <img src="portada-libro.jpg" 
-                 onerror="this.src='https://storage.googleapis.com/cdn-lantia/images/lantia_cover_68491ffc92d19_360.jpg'" 
-                 alt="Portada del libro A Dios no se le busca, se le deja estar (DIOS ES) de Francisco Manuel Gordillo Borrego" 
-                 class="w-full h-full object-cover rounded-r-2xl rounded-l-sm" />
+            <!-- Sombra ambiental en el suelo -->
+            <div class="book-ground-shadow absolute -bottom-7 left-6 right-6 h-8 bg-black/40 dark:bg-black/60 blur-xl rounded-full transition-all duration-500 pointer-events-none"></div>
 
-            <!-- Reflejo suave de relieve sobre la cubierta -->
-            <div class="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-white/10 pointer-events-none rounded-r-2xl"></div>
+            <!-- Contraportada trasera del libro -->
+            <div class="book-back absolute inset-0 bg-[#26201C] rounded-r-2xl rounded-l-sm shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] border-l-4 border-l-[#1E1916]"></div>
 
-            <!-- Efecto lomo 3D en el borde izquierdo -->
-            <div class="absolute left-0 top-0 bottom-0 w-4 bg-gradient-to-r from-black/40 via-black/10 to-transparent pointer-events-none"></div>
+            <!-- Páginas interiores que se hojean en abanico -->
+            <div class="book-page book-page-5 absolute inset-y-1.5 left-2 right-1 bg-[#FAF6EE] dark:bg-[#EDE7DC] rounded-r-xl border-r border-[#D9D1C5]"></div>
+            <div class="book-page book-page-4 absolute inset-y-1.5 left-2 right-1.5 bg-[#F6F1E6] dark:bg-[#E7E0D3] rounded-r-xl border-r border-[#D5CCC0]"></div>
+            <div class="book-page book-page-3 absolute inset-y-1.5 left-2 right-2 bg-[#FAF6EE] dark:bg-[#EAE4D7] rounded-r-xl border-r border-[#D9D1C5]"></div>
+            <div class="book-page book-page-2 absolute inset-y-1.5 left-2 right-2.5 bg-[#F4EFE2] dark:bg-[#E3DCCE] rounded-r-xl border-r border-[#D0C7B9]"></div>
+            <div class="book-page book-page-1 absolute inset-y-1.5 left-2 right-3 bg-[#FCF9F2] dark:bg-[#EFE9DF] rounded-r-xl border-r border-[#CBC2B3]"></div>
 
-            <!-- Efecto de grosor de páginas en el borde derecho -->
-            <div class="absolute right-0 top-0 bottom-0 w-1.5 bg-gradient-to-l from-white/20 to-transparent pointer-events-none"></div>
+            <!-- Canto derecho de hojas (grosor realista de papel) -->
+            <div class="book-edge absolute right-[-7px] top-2.5 bottom-2.5 w-2.5 rounded-r bg-gradient-to-r from-[#D6CEC0] via-[#FAF5EC] to-[#C2B7A6] shadow-xs pointer-events-none z-20"></div>
+
+            <!-- Cubierta / Portada frontal (SIEMPRE VISIBLE en primer plano, z-30) -->
+            <div class="book-cover-front absolute inset-0 rounded-r-2xl rounded-l-sm overflow-hidden border-l-4 border-l-[#2E2824] bg-neutral-900 shadow-md z-30 transition-transform duration-500">
+              
+              <!-- Portada Real del Libro -->
+              <img src="portada-libro.jpg" 
+                   onerror="this.src='https://storage.googleapis.com/cdn-lantia/images/lantia_cover_68491ffc92d19_360.jpg'" 
+                   alt="Portada del libro A Dios no se le busca, se le deja estar (DIOS ES) de Francisco Manuel Gordillo Borrego" 
+                   class="w-full h-full object-cover rounded-r-2xl rounded-l-sm" />
+
+              <!-- Reflejo suave de relieve sobre la cubierta -->
+              <div class="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-white/10 pointer-events-none rounded-r-2xl"></div>
+
+              <!-- Efecto lomo 3D en el borde izquierdo -->
+              <div class="absolute left-0 top-0 bottom-0 w-4 bg-gradient-to-r from-black/40 via-black/10 to-transparent pointer-events-none"></div>
+
+              <!-- Efecto de brillo sutil en el borde derecho -->
+              <div class="absolute right-0 top-0 bottom-0 w-1.5 bg-gradient-to-l from-white/20 to-transparent pointer-events-none"></div>
+            </div>
+
           </div>
+
+          <!-- Pista interactiva para el lector -->
+          <button type="button" id="btnHojearLibro" class="mt-5 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-neutral-800/80 hover:bg-sage-50 dark:hover:bg-sage-900/40 text-warmgray-600 dark:text-[#C5BFB5] hover:text-sage-700 dark:hover:text-sage-300 text-xs font-medium border border-black/[0.06] dark:border-white/[0.08] shadow-xs backdrop-blur-xs transition group cursor-pointer">
+            <i data-lucide="book-open" class="w-3.5 h-3.5 text-sage-500 group-hover:scale-110 transition-transform"></i>
+            <span>Toca el libro para hojearlo</span>
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-sage-500 animate-ping"></span>
+          </button>
+
         </div>
 
         <!-- Información y enlaces oficiales -->
@@ -738,12 +916,42 @@
       aura.style.top = `${e.clientY}px`;
     });
 
-    // ==================== Rotación 3D del Libro ====================
+    // ==================== Rotación 3D y Hojeo del Libro ====================
     const bookContainer = document.getElementById('bookContainer');
     const book3D = document.getElementById('book3D');
+    const btnHojearLibro = document.getElementById('btnHojearLibro');
+    let isBookFlipping = false;
+
+    function triggerBookFlip() {
+      if (isBookFlipping || !book3D) return;
+      isBookFlipping = true;
+
+      // Limpiamos estilos inline para que la animación CSS tenga control total
+      book3D.style.transform = '';
+      book3D.classList.remove('is-flipping');
+      void book3D.offsetWidth; // Reflow para reiniciar la animación limpiamente
+      book3D.classList.add('is-flipping');
+
+      // Reproducir sonido sutil de hojas pasando
+      playPaperRustle();
+
+      setTimeout(() => {
+        book3D.classList.remove('is-flipping');
+        book3D.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+        isBookFlipping = false;
+      }, 1800);
+    }
+
+    if (book3D) {
+      book3D.addEventListener('click', triggerBookFlip);
+    }
+    if (btnHojearLibro) {
+      btnHojearLibro.addEventListener('click', triggerBookFlip);
+    }
 
     if (bookContainer && book3D) {
       bookContainer.addEventListener('mousemove', (e) => {
+        if (isBookFlipping) return;
         const rect = bookContainer.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
@@ -753,8 +961,54 @@
       });
 
       bookContainer.addEventListener('mouseleave', () => {
+        if (isBookFlipping) return;
         book3D.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
       });
+    }
+
+    // Efecto de sonido orgánico y sutil de papel al hojear
+    function playPaperRustle() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        if (ctx.state === 'suspended') {
+          ctx.resume();
+        }
+        const duration = 1.3;
+        const bufferSize = Math.floor(ctx.sampleRate * duration);
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / ctx.sampleRate;
+          // Ondas rítmicas de hojeo de páginas (~14 hojas por segundo)
+          const flutter = Math.sin(t * Math.PI * 2 * 14) * 0.35 + 0.65;
+          const env = Math.sin((i / bufferSize) * Math.PI);
+          data[i] = (Math.random() * 2 - 1) * flutter * env * 0.08;
+        }
+
+        const source = ctx.createBufferSource();
+        source.buffer = buffer;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(1700, ctx.currentTime);
+        filter.Q.setValueAtTime(2.2, ctx.currentTime);
+
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0.28, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.005, ctx.currentTime + duration);
+
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+
+        source.start();
+        source.onended = () => { ctx.close().catch(() => {}); };
+      } catch (err) {
+        // En caso de bloqueo por política de audio del navegador, continuar en silencio
+      }
     }
 
     // ==================== Indicadores de Scroll Snap (Dots Activos) ====================
