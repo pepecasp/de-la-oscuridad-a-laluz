@@ -126,11 +126,12 @@
     /* 3D perspective for book */
     .perspective-1000 {
       perspective: 1200px;
+      perspective-origin: 50% 50%;
     }
     
     .book-3d {
       transform-style: preserve-3d;
-      transform: rotateY(-20deg) rotateX(6deg);
+      transform: rotateY(-18deg) rotateX(5deg) translateX(8px);
       transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
       will-change: transform;
     }
@@ -609,7 +610,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         
         <!-- Mockup 3D Interactivo con la PORTADA REAL del libro (Entreabierto con hojeo automático) -->
-        <div class="lg:col-span-5 flex flex-col items-center justify-center perspective-1000 py-6" id="bookContainer">
+        <div class="lg:col-span-5 flex items-center justify-center perspective-1000 py-8 lg:py-12" id="bookContainer">
           
           <div id="book3D" class="book-3d relative w-64 sm:w-80 aspect-[1/1.5] select-none cursor-pointer group">
             
@@ -650,12 +651,6 @@
               <div class="absolute right-0 top-0 bottom-0 w-1.5 bg-gradient-to-l from-white/20 to-transparent pointer-events-none"></div>
             </div>
 
-          </div>
-
-          <!-- Pista interactiva para el lector -->
-          <div class="mt-5 flex items-center gap-2 text-xs text-warmgray-500 dark:text-[#A7A298] bg-black/[0.03] dark:bg-white/[0.04] px-3.5 py-1.5 rounded-full border border-black/[0.05] dark:border-white/[0.06] transition-opacity">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-sage-500"></i>
-            <span>Pasa el ratón por el libro para hojearlo</span>
           </div>
 
         </div>
@@ -962,13 +957,13 @@
         const rect = bookContainer.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
-        const rotateX = 6 - (y / rect.height) * 12;
-        const rotateY = -20 + (x / rect.width) * 16;
-        book3D.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+        const rotateX = 5 - (y / rect.height) * 10;
+        const rotateY = -18 + (x / rect.width) * 14;
+        book3D.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateX(8px) scale(1.03)`;
       });
 
       bookContainer.addEventListener('mouseleave', () => {
-        book3D.style.transform = `rotateX(6deg) rotateY(-20deg) scale(1)`;
+        book3D.style.transform = `rotateX(5deg) rotateY(-18deg) translateX(8px) scale(1)`;
       });
 
       book3D.addEventListener('click', () => {
