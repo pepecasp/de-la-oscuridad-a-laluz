@@ -155,7 +155,10 @@
     /* Canto derecho de páginas */
     .book-edge {
       transform: translateZ(-6px);
-      animation: edgeFlutter 1.4s ease-in-out infinite;
+      transition: width 0.3s ease, opacity 0.3s ease;
+    }
+    .book-3d:hover .book-edge {
+      animation: edgeFlutter 1.2s ease-in-out infinite;
     }
     @keyframes edgeFlutter {
       0%, 100% {
@@ -176,8 +179,12 @@
       transform: translateZ(12px) rotateY(-8deg);
       transform-style: preserve-3d;
       backface-visibility: hidden;
-      animation: coverAjarBreathing 3.6s ease-in-out infinite alternate;
       box-shadow: -8px 15px 30px -5px rgba(0,0,0,0.5);
+      transition: transform 0.4s ease;
+    }
+
+    .book-3d:hover .book-cover-front {
+      animation: coverAjarBreathing 2.4s ease-in-out infinite alternate;
     }
 
     @keyframes coverAjarBreathing {
@@ -189,10 +196,13 @@
       }
     }
 
-    /* Hojas que pasan rápidas automáticamente dentro del libro entreabierto */
+    /* Hojas interiores: en reposo están quietas y ordenadas */
     .book-leaf {
       transform-origin: left center;
+      transform: translateZ(-6px) rotateY(0deg);
+      transition: transform 0.4s ease, opacity 0.4s ease;
       will-change: transform, opacity;
+      opacity: 0.75;
       box-shadow: inset -3px 0 6px rgba(0,0,0,0.06), -2px 0 4px rgba(0,0,0,0.08);
       background-image: repeating-linear-gradient(
         180deg,
@@ -203,26 +213,46 @@
       );
     }
 
-    .leaf-1 {
-      animation: leafFastFlip 1.4s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+    /* SOLO al pasar por encima (hover): hojeo rápido y fluido */
+    .book-3d:hover .leaf-1 {
+      animation: leafFastFlip 1.2s cubic-bezier(0.35, 0, 0.25, 1) infinite;
       animation-delay: 0s;
     }
-    .leaf-2 {
-      animation: leafFastFlip 1.4s cubic-bezier(0.35, 0, 0.25, 1) infinite;
-      animation-delay: 0.18s;
+    .book-3d:hover .leaf-2 {
+      animation: leafFastFlip 1.2s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+      animation-delay: 0.16s;
     }
-    .leaf-3 {
-      animation: leafFastFlip 1.4s cubic-bezier(0.35, 0, 0.25, 1) infinite;
-      animation-delay: 0.36s;
+    .book-3d:hover .leaf-3 {
+      animation: leafFastFlip 1.2s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+      animation-delay: 0.32s;
     }
-    .leaf-4 {
-      animation: leafFastFlip 1.4s cubic-bezier(0.35, 0, 0.25, 1) infinite;
-      animation-delay: 0.54s;
+    .book-3d:hover .leaf-4 {
+      animation: leafFastFlip 1.2s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+      animation-delay: 0.48s;
     }
 
     @keyframes leafFastFlip {
       0%, 100% {
         transform: translateZ(-6px) rotateY(0deg);
+        opacity: 0.7;
+      }
+      20% {
+        transform: translateZ(2px) rotateY(-4deg) skewY(0.4deg);
+        opacity: 0.95;
+      }
+      45% {
+        transform: translateZ(8px) rotateY(-7deg) skewY(-0.3deg);
+        opacity: 1;
+      }
+      70% {
+        transform: translateZ(4px) rotateY(-3deg) skewY(0.2deg);
+        opacity: 0.9;
+      }
+      85% {
+        transform: translateZ(-2px) rotateY(-1deg);
+        opacity: 0.8;
+      }
+    }
         opacity: 0.7;
       }
       20% {
@@ -592,10 +622,10 @@
 
           </div>
 
-          <!-- Indicador sutil de obra -->
-          <div class="mt-5 flex items-center gap-2 text-xs text-warmgray-500 dark:text-[#A7A298] bg-black/[0.03] dark:bg-white/[0.04] px-3.5 py-1.5 rounded-full border border-black/[0.05] dark:border-white/[0.06]">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-sage-500 animate-pulse"></i>
-            <span>Edición original · Caligrama</span>
+          <!-- Pista interactiva para el lector -->
+          <div class="mt-5 flex items-center gap-2 text-xs text-warmgray-500 dark:text-[#A7A298] bg-black/[0.03] dark:bg-white/[0.04] px-3.5 py-1.5 rounded-full border border-black/[0.05] dark:border-white/[0.06] transition-opacity">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-sage-500"></i>
+            <span>Pasa el ratón por el libro para hojearlo</span>
           </div>
 
         </div>
@@ -885,6 +915,17 @@
     const book3D = document.getElementById('book3D');
 
     if (bookContainer && book3D) {
+      let rustleCooldown = false;
+
+      // Reproducir sonido sutil de hojas pasando al entrar el ratón
+      bookContainer.addEventListener('mouseenter', () => {
+        if (!rustleCooldown) {
+          playPaperRustle();
+          rustleCooldown = true;
+          setTimeout(() => { rustleCooldown = false; }, 1800);
+        }
+      });
+
       bookContainer.addEventListener('mousemove', (e) => {
         const rect = bookContainer.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
@@ -898,7 +939,6 @@
         book3D.style.transform = `rotateX(6deg) rotateY(-20deg) scale(1)`;
       });
 
-      // Al hacer clic, reproducir el sutil susurro de páginas pasando
       book3D.addEventListener('click', () => {
         playPaperRustle();
       });
